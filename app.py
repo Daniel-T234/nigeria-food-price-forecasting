@@ -150,6 +150,23 @@ def load_and_prepare(wfp_path: str, macro_path: str) -> pd.DataFrame:
     df_wfp   = pd.read_csv(wfp_path);   df_wfp["date"]   = pd.to_datetime(df_wfp["date"])
     df_macro = pd.read_csv(macro_path); df_macro["date"] = pd.to_datetime(df_macro["date"])
 
+    # Validate correct files were loaded
+    if "commodity" not in df_wfp.columns or "unit" not in df_wfp.columns:
+        raise ValueError(
+            f"'{wfp_path}' does not look like the WFP prices file. "
+            "It must contain 'commodity' and 'unit' columns."
+        )
+    if len(df_wfp) < 1000:
+        raise ValueError(
+            f"'{wfp_path}' only has {len(df_wfp)} rows — expected ~57,000. "
+            "Make sure you uploaded wfp_food_prices_nga.csv (not the merged output file)."
+        )
+    if "cpi" not in df_macro.columns:
+        raise ValueError(
+            f"'{macro_path}' does not look like the macro dataset. "
+            "It must contain a 'cpi' column."
+        )
+
     # Standardise to NGN per KG
     df_wfp = df_wfp[df_wfp["commodity"].isin(TARGET_COMMODITIES.keys())].copy()
     df_wfp["price_per_kg"] = df_wfp.apply(
@@ -172,7 +189,9 @@ def load_and_prepare(wfp_path: str, macro_path: str) -> pd.DataFrame:
     wide.columns.name = None
 
     macro_cols = [c for c in ["cpi","fuel_price","temperature","rainfall"] if c in df_macro.columns]
-    df = wide.merge(df_macro[["year_month"]+macro_cols], on="year_month", how="inner")
+    # Aggregate macro to one row per month (prevents cartesian explosion if dates aren't unique)
+    mac_monthly = df_macro.groupby("year_month")[macro_cols].mean().reset_index()
+    df = wide.merge(mac_monthly, on="year_month", how="inner")
     df["date"] = df["year_month"].dt.to_timestamp()
     df = df.drop(columns=["year_month"])
 
