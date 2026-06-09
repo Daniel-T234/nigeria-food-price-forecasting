@@ -16,6 +16,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 import json
+import joblib
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
@@ -259,7 +261,32 @@ def safe_eval(yt, yp):
 
 @st.cache_resource(show_spinner=False)
 def train_hybrid_models(_df, n_trials=40):
-    """Train ARIMA + XGBoost hybrid for each kept commodity."""
+    """
+    Load pre-trained models from models/ folder if available.
+    Falls back to training from scratch if models not found.
+    Pre-train by running: python train_and_save.py
+    """
+    import joblib
+    from pathlib import Path
+
+    models_dir = Path("models")
+    metrics_path = models_dir / "metrics.json"
+
+    # ── Fast path: load pre-trained models ───────────────────
+    if models_dir.exists() and metrics_path.exists():
+        all_keys_present = all(
+            (models_dir / f"{col}.joblib").exists()
+            for col in KEPT_COMMODITIES
+        )
+        if all_keys_present:
+            trained = {}
+            for col in KEPT_COMMODITIES:
+                trained[col] = joblib.load(models_dir / f"{col}.joblib")
+            with open(metrics_path) as f:
+                metrics = json.load(f)
+            return trained, metrics
+
+    # ── Slow path: train from scratch ─────────────────────────
     trained = {}
     metrics = {}
 
