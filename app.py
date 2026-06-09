@@ -631,9 +631,12 @@ with tab2:
         hi  = [p["upper"] for p in fc]
         clr = COMMODITY_COLORS[col]
 
+        # Convert hex to rgba for Plotly compatibility
+        r,g,b = int(clr[1:3],16), int(clr[3:5],16), int(clr[5:7],16)
+        fill_rgba = f"rgba({r},{g},{b},0.15)"
         fig2.add_trace(go.Scatter(
             x=xs+xs[::-1], y=hi+lo[::-1], fill="toself",
-            fillcolor=clr+"33", line=dict(color="rgba(0,0,0,0)"),
+            fillcolor=fill_rgba, line=dict(color="rgba(0,0,0,0)"),
             showlegend=False, hoverinfo="skip"
         ))
         fig2.add_trace(go.Scatter(
