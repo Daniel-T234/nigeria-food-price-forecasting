@@ -303,6 +303,7 @@ def train_hybrid_models(_df, n_trials=40):
                 trained[col] = joblib.load(models_dir / f"{col}.joblib")
             with open(metrics_path) as f:
                 metrics = json.load(f)
+            st.success("⚡ Pre-trained models loaded instantly from models/ folder")
             return trained, metrics
 
     # ── Slow path: train from scratch ─────────────────────────
@@ -310,9 +311,14 @@ def train_hybrid_models(_df, n_trials=40):
     metrics = {}
 
     for col, label in KEPT_COMMODITIES.items():
-        ts = (_df.groupby("date")[col].mean()
+        ts_raw = (_df.groupby("date")[col].mean()
                 .reset_index().set_index("date")
                 .asfreq("MS", method="ffill")[col])
+
+        # Winsorise extreme spikes (beyond 3x IQR) to prevent test-period collapse
+        Q1,Q3 = ts_raw.quantile(0.25), ts_raw.quantile(0.75)
+        IQR   = Q3-Q1
+        ts    = ts_raw.clip(lower=Q1-3*IQR, upper=Q3+3*IQR)
         ts_tr, ts_te = ts.iloc[:-TEST_SIZE], ts.iloc[-TEST_SIZE:]
 
         # ARIMA
