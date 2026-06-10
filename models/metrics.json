@@ -2,105 +2,105 @@
   "maize_white": {
     "label": "Maize (White)",
     "arima": {
-      "MAE": 31.2,
-      "RMSE": 39.57,
-      "R2": -1.7562,
-      "MAPE": 20.14,
-      "accuracy": 79.86
+      "MAE": 5.84,
+      "RMSE": 6.49,
+      "R2": 0.1398,
+      "MAPE": 2.71,
+      "accuracy": 97.29
     },
     "xgb": {
-      "MAE": 19.3,
-      "RMSE": 27.97,
-      "R2": -0.3769,
-      "MAPE": 12.88,
-      "accuracy": 87.12
+      "MAE": 10.7,
+      "RMSE": 13.1,
+      "R2": -2.5085,
+      "MAPE": 5.0,
+      "accuracy": 95.0
     },
     "hybrid": {
-      "MAE": 22.66,
-      "RMSE": 32.16,
-      "R2": -0.8207,
-      "MAPE": 15.05,
-      "accuracy": 84.95
+      "MAE": 6.55,
+      "RMSE": 7.8,
+      "R2": -0.2447,
+      "MAPE": 3.05,
+      "accuracy": 96.95
     },
-    "w_ar": 0.39,
-    "w_xg": 0.61
+    "w_ar": 0.649,
+    "w_xg": 0.351
   },
   "maize_yellow": {
     "label": "Maize (Yellow)",
     "arima": {
-      "MAE": 43.34,
-      "RMSE": 50.54,
-      "R2": -3.0104,
-      "MAPE": 27.16,
-      "accuracy": 72.84
+      "MAE": 7.87,
+      "RMSE": 9.4,
+      "R2": -1.2952,
+      "MAPE": 3.6,
+      "accuracy": 96.4
     },
     "xgb": {
-      "MAE": 19.24,
-      "RMSE": 27.36,
-      "R2": -0.1752,
-      "MAPE": 12.58,
-      "accuracy": 87.42
+      "MAE": 9.43,
+      "RMSE": 11.85,
+      "R2": -2.6462,
+      "MAPE": 4.33,
+      "accuracy": 95.67
     },
     "hybrid": {
-      "MAE": 25.31,
-      "RMSE": 33.6,
-      "R2": -0.7726,
-      "MAPE": 16.41,
-      "accuracy": 83.59
+      "MAE": 8.07,
+      "RMSE": 9.85,
+      "R2": -1.5187,
+      "MAPE": 3.7,
+      "accuracy": 96.3
     },
-    "w_ar": 0.317,
-    "w_xg": 0.683
+    "w_ar": 0.546,
+    "w_xg": 0.454
   },
   "beans_red": {
     "label": "Beans (Red)",
     "arima": {
-      "MAE": 995.34,
-      "RMSE": 1005.93,
-      "R2": -35.6921,
-      "MAPE": 190.09,
-      "accuracy": -90.09
+      "MAE": 72.75,
+      "RMSE": 84.19,
+      "R2": -3.1031,
+      "MAPE": 15.57,
+      "accuracy": 84.43
     },
     "xgb": {
-      "MAE": 376.12,
-      "RMSE": 402.49,
-      "R2": -4.8742,
-      "MAPE": 75.47,
-      "accuracy": 24.53
+      "MAE": 82.49,
+      "RMSE": 94.98,
+      "R2": -4.2223,
+      "MAPE": 17.56,
+      "accuracy": 82.44
     },
     "hybrid": {
-      "MAE": 534.91,
-      "RMSE": 564.13,
-      "R2": -10.5394,
-      "MAPE": 106.39,
-      "accuracy": -6.39
+      "MAE": 74.42,
+      "RMSE": 88.29,
+      "R2": -3.5127,
+      "MAPE": 15.97,
+      "accuracy": 84.03
     },
-    "w_ar": 0.284,
-    "w_xg": 0.716
+    "w_ar": 0.53,
+    "w_xg": 0.47
   },
   "beans_white": {
     "label": "Beans (White)",
     "arima": {
-      "MAE": 964.27,
-      "RMSE": 970.42,
-      "R2": -78.1746,
-      "MAPE": 180.79,
-      "accuracy": -80.79
+      "MAE": 16.46,
+      "RMSE": 21.16,
+      "R2": 0.0164,
+      "MAPE": 3.48,
+      "accuracy": 96.52
     },
     "xgb": {
-      "MAE": 473.52,
-      "RMSE": 487.72,
-      "R2": -18.9994,
-      "MAPE": 90.66,
-      "accuracy": 9.34
+      "MAE": 49.23,
+      "RMSE": 54.76,
+      "R2": -5.5904,
+      "MAPE": 10.54,
+      "accuracy": 89.46
     },
     "hybrid": {
-      "MAE": 637.42,
-      "RMSE": 647.15,
-      "R2": -34.2115,
-      "MAPE": 120.76,
-      "accuracy": -20.76
+      "MAE": 24.59,
+      "RMSE": 27.37,
+      "R2": -0.6461,
+      "MAPE": 5.23,
+      "accuracy": 94.77
     },
-    "w_ar": 0.334,
-    "w_xg": 0.666
+    "w_ar": 0.752,
+    "w_xg": 0.248
   }
 }
